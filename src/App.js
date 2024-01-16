@@ -1,23 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import FormularioPregunta from './components/formularioPregunta';
+import PreguntasCreadas from './components/preguntasCreadas';
+import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function App() {
+  const [preguntas, setPreguntas] = useState([]);
+
+  const addQuestion = (nueva) => {
+    nueva.id = preguntas.length + 1;
+    setPreguntas([...preguntas, nueva]);
+  }
+
+
+  const borrarPregunta = (id) => {
+
+    setPreguntas(preguntas.filter((pregunta) => pregunta.id !== id));
+
+
+  };
+  console.log(preguntas + "appjs");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FormularioPregunta aniadePregunta={addQuestion} />
+      <PreguntasCreadas preguntas={preguntas} borrarPregunta={borrarPregunta} />
     </div>
   );
 }
